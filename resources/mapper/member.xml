@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.home.member.mapper.MemberMapper">
+
+	<insert id="signUp" parameterType="member">
+		insert into member(id, pw, name, addr, tel, regions, img) 
+		values (#{id}, #{pw}, #{name}, #{addr}, #{tel}, #{regions}, #{img})
+	</insert>
+	
+	<select id="isMemberExists" parameterType="string" resultType="boolean">
+    	select count(id) > 0 from member where id = #{id}
+	</select>
+	
+	<select id="checkIdName" parameterType="member" resultType="member">
+    	select * from member
+		where id = #{id} and name = #{name}
+	</select>
+	
+	<select id="login" parameterType="member" resultType="member">
+		select id, name, addr, tel, regions, img from member
+		where id = #{id} and pw = #{pw}
+	</select>
+	
+	<select id="searchMember" parameterType="string" resultType="member">
+		select * from member
+		where id = #{id}
+	</select>
+	
+<update id="updateMember" parameterType="member">
+    update member 
+    set pw=#{pw}, 
+        name=#{name}, 
+        addr=#{addr}, 
+        tel=#{tel}, 
+        regions=#{regions}, 
+        img=#{img}
+    where id = #{id}
+</update>
+
+	
+	<delete id="deleteMember" parameterType="string">
+		delete from member
+		where id = #{id}
+	</delete>
+	
+	<select id="getMemberList" parameterType="string" resultType="member">
+		select * from member
+	</select>
+	
+</mapper>
